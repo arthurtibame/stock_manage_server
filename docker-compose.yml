@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  stockapp:
+    build: ./stock_mvc
+    container_name: stockapp
+    networks:
+      - backend
+    #ports: 
+    #  - "8000:8000"
+    #environment:
+    #  - SERVER_NAME=0.0.0.0
+    #network_mode: host
+
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    environment:
+      - SERVER_NAME=52.77.252.5
+    ports:
+      - "80:80"           
+    restart: always
+    networks:
+      - backend
+    #network_mode: host
+
+
+networks:   
+  #default:       
+  # driver: bridge
+  backend:
+    driver: bridge          
+
