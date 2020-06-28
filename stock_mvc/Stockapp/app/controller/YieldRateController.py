@@ -27,7 +27,4 @@ def yield_rate():
         return render_template('yield_rate.html', contents=contents, res_msg = res_msg)
 
     return redirect(url_for('today_stock'))
-    # if request.method =="POST":
-    #    contents = Crawler().yield_rate
-    #    return render_template('yield_rate.html', contents = contents)
-    #    #return redirect(url_for('index'))
+

@@ -20,11 +20,13 @@ class TodayStock(db.Model):
     DividendYield = db.Column(db.Float) 
     DividendMoney = db.Column(db.Float) 
     DividendStock = db.Column(db.Float) 
+    VolumeIncrease = db.Column(db.Float) 
+    PreLegalBuy = db.Column(db.Float) 
     # Auto added cols
     CreateTime = db.Column(db.DateTime, default=datetime.utcnow)
     ModifyTime = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __inti__(self, ClosingIndex, IndexSpread, OpeningPrice, ClosingPrice, DayHighPrice, DayLowPrice, PriceSpread, TradeQuantity, TradeAmount, StockType, DividendYield, DividendMoney, DividendStock, StartDate, EndDate):
+    def __inti__(self, ClosingIndex, IndexSpread, OpeningPrice, ClosingPrice, DayHighPrice, DayLowPrice, PriceSpread, TradeQuantity, TradeAmount, StockType, DividendYield, DividendMoney, DividendStock, StartDate, EndDate, VolumeIncrease, PreLegalBuy):
         self.ClosingIndex = ClosingIndex
         self.IndexSpread = IndexSpread
         self.OpeningPrice = OpeningPrice
@@ -38,5 +40,8 @@ class TodayStock(db.Model):
         self.DividendYield = DividendYield
         self.DividendMoney = DividendMoney
         self.DividendStock = DividendStock
+        self.VolumeIncrease =  VolumeIncrease
+        self.PreLegalBuy = PreLegalBuy
+
         self.StartDate = StartDate
         self.EndDate = EndDate

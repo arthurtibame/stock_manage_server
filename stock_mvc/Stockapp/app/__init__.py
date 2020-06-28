@@ -36,6 +36,6 @@ db = SQLAlchemy(app)
 #bcrypt = Bcrypt(app)
 #app 導入後才能import 
 from app.model import UserModel, TaiexModel, TodayStockModel, YieldRateModel
-from app.service import TaiexService, TodayStockService, YieldRateService
+from app.service import TaiexService, TodayStockService, YieldRateService, ShortTermStrongStockService
 #只有在app对象之后声明，用于导入view模块
-from app.controller import IndexController, TodayStockController, TaiexController, YieldRateController
+from app.controller import IndexController, TodayStockController, TaiexController, YieldRateController, ShortTermStrongStockController, ChooseShortTermStrongStockController
