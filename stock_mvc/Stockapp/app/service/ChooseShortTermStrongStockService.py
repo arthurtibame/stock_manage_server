@@ -42,10 +42,10 @@ def insert_short_term_strong_stock(content):#content=dict()):
             db.session.add(newShortTermStrongStock)
             db.session.commit()            
         except:
-            return "資料庫error新增失敗"
-        return "新增成功"
+            return "db error"
+        return 'successfully'
     else:
-        return "今日資料尚未更新或今日無資料"
+        return "There is no data updated today "
 
 def FromDict2StockCode(content=dict()): 
     """

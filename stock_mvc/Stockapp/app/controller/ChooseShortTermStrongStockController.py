@@ -25,9 +25,6 @@ def choose_short_term_strong_stock():
     if request.method == "POST" and content != test:
         
         res_msg = insert_short_term_strong_stock(content)
-        print(res_msg)
-        #res_msg=""
-        #contents = Crawler().short_term_strong_stock
         return render_template('choose_short_term_strong_stock.html', contents=contents, res_msg = res_msg)
 
     return redirect(url_for('short_term_strong_stock'))
