@@ -7,10 +7,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 @app.route("/taiex", methods=["GET", "POST"])
 @login_required
 def taiex():
-    taiexs = get_taiex()
-    
-    if request.method == 'GET':    
-        print(session['cookie'])    
+    taiexs = get_taiex()    
+    if request.method == 'GET':            
         return render_template('taiex.html', taiexs=taiexs)
     
     if request.method =="POST":   

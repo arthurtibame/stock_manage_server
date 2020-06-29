@@ -24,21 +24,13 @@ def login():
 
     # query the user
     json_content = request_user(username, password)
-    statusCode = json_content["statusCode"]
+    statusCode = json_content["statusCode"]  
     
     
-    print(statusCode)
     if request.method == 'POST':
-        if statusCode == 200:
-            
-            #global user_label
-            #user_label = json_content['data']['Name']    
+        if statusCode == 200:            
 
-            #session['cookie'] = bytes(json_content['data']['ID'])
-            #session['username'] = request.form['username']
-            session['cookie'] = json_content['data']['Key']
-            print("Keys:    ",json_content['data']['Key'])
-            print("Cookie:  ",session['cookie'])
+            session['cookie'] = json_content['data']['Key']                       
             return redirect(url_for('index'))            
         else:
             return render_template('login.html' ,error_msg = json_content["message"])

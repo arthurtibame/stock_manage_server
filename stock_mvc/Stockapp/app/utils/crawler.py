@@ -94,31 +94,36 @@ class Crawler(object):
 
         res = requests.post(shortTermStrongStockUrl, headers=headers, data=data)
         soup = BeautifulSoup(res.text, 'lxml')
-        uls = soup.find_all('ul', {"class":"ul_stock"})
-        result = list()
-        for ul in uls:
-            counter = 0
-            a = list()
-            for li in ul.find_all('li'):
-                if counter == 1 : # deal with second tag <li></li>
-                    stockCode = li.a['href'][-9:-5]
-                    stockName = li.a.text[:-6]
-                    nameDealer = stockName.split()
-                    if len(nameDealer) == 2:
-                        stockName = nameDealer[0] + nameDealer[1]
-                        a.append(stockName)    
-                    else:
-                        a.append(stockName)
-                    # check check company category 
-                    companyCategory = self.__chkConpamyCategory(stockCode)                    
-                    a.append(stockCode)                   
-                    a.append(companyCategory)
-                elif counter !=7:
-                    a.append(li.text)   
-                counter+=1
-            a = self.__StrongStock2dict(a[1:])            
-            result.append(a)
-        return result
+        date = soup.find_all('div',{"style":"padding:0 10px 6px;font-size:14px;text-align:right"})[0].text.split(': ')[1]
+        strp_date = datetime.strptime(date, "%Y-%m-%d").date()
+        if datetime.now().date == strp_date:
+            uls = soup.find_all('ul', {"class":"ul_stock"})
+            result = list()
+            for ul in uls:
+                counter = 0
+                a = list()
+                for li in ul.find_all('li'):
+                    if counter == 1 : # deal with second tag <li></li>
+                        stockCode = li.a['href'][-9:-5]
+                        stockName = li.a.text[:-6]
+                        nameDealer = stockName.split()
+                        if len(nameDealer) == 2:
+                            stockName = nameDealer[0] + nameDealer[1]
+                            a.append(stockName)    
+                        else:
+                            a.append(stockName)
+                        # check check company category 
+                        companyCategory = self.__chkConpamyCategory(stockCode)                    
+                        a.append(stockCode)                   
+                        a.append(companyCategory)
+                    elif counter !=7:
+                        a.append(li.text)   
+                    counter+=1
+                a = self.__StrongStock2dict(a[1:])            
+                result.append(a)
+            return result
+        else:
+            return None
 
     def __chkConpamyCategory(self, stock_id):
         
@@ -144,20 +149,3 @@ class Crawler(object):
             "VolumeIncrease", "PreLegalBuy"
             ]
         return dict(zip(col_names, content))
-
-        
-    
-
-if __name__ == "__main__":
-    from datetime import datetime, timedelta
-    start_time = datetime.now()
-    a = Crawler()
-    #a.test
-    #print(a.taiex_content)
-    #print(a.yield_rate)
-    b = a.shortTermStrongStock
-    end_time = datetime.now()
-    
-    print((end_time - start_time).seconds)
-    print(b)
-    

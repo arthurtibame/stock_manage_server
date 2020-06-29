@@ -3,7 +3,7 @@ from app import db
 from sqlalchemy import desc,text
 
 def get_today_stock():
-    sql = text('SELECT * FROM TodayStock WHERE StockType = "0" AND EndDate = (SELECT MAX(EndDate) FROM TodayStock)')
+    sql = text('SELECT * FROM TodayStock WHERE StockType = "0" AND EndDate = (SELECT MAX(EndDate) FROM TodayStock WHERE StockType = "0")')
     result = db.engine.execute(sql)
     return result
     

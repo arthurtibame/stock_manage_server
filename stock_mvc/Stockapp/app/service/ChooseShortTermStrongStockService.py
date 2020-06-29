@@ -23,7 +23,7 @@ def insert_short_term_strong_stock(content):#content=dict()):
     if type(final_result) == type(dict()):        
         try:
             newShortTermStrongStock = ChooseShortTermStrongStock(                                
-                StockCode = final_result["StockCode"],
+                StockCode = str(final_result["StockCode"]),
                 StockName = final_result["StockName"],
                 StartDate = final_result['StartDate'],
                 EndDate = final_result['EndDate'],
@@ -32,8 +32,8 @@ def insert_short_term_strong_stock(content):#content=dict()):
                 DayHighPrice = final_result['DayHighPrice'],
                 DayLowPrice = final_result['DayLowPrice'],
                 PriceSpread = final_result['PriceSpread'],
-                TradeQuantity = final_result['TradeQuantity'],
-                TradeAmount = final_result['TradeAmount'],
+                TradeQuantity = str(final_result['TradeQuantity']),
+                TradeAmount = str(final_result['TradeAmount']),
                 StockType = final_result['StockType'],
                 VolumeIncrease = final_result['VolumeIncrease'],
                 PreLegalBuy = final_result['PreLegalBuy']                                                 
@@ -93,9 +93,9 @@ def OTCcompany(StockCode):  # 上櫃公司
         i = 0
         for f in json_content:
             if i<2:
-                result.append(num(f)*1000)
+                result.append(f+",000")
             else:
-                result.append(num(f))
+                result.append(f)
             i+=1
         return result
     else:
@@ -116,7 +116,7 @@ def PublicCompany(StockCode):  # 上市公司
     callback_result =  ChkUpdateDate(latest_data_date)
     if callback_result == True:
         json_content = json.loads(res.text)['data'][-1][1:-1]
-        result = [num(f) for f in json_content]
+        result = [f for f in json_content]
         return result
     else: 
         return False
@@ -147,8 +147,3 @@ def MergeResult(content=dict(), result=list()):
     content['EndDate'] = TheTime().end_date_time
     return content
 
-def num(s):
-    try:
-        return int(s.replace(",",""))
-    except ValueError:
-        return float(s)
