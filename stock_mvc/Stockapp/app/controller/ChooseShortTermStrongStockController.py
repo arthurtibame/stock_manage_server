@@ -17,8 +17,10 @@ def choose_short_term_strong_stock():
         if contents != None:
             return render_template('choose_short_term_strong_stock.html', contents=contents)
         else:
+            #如果資料尚未更新 在前端顯示尚未更新
             contents = ""
-            return render_template('choose_short_term_strong_stock.html', contents=contents)
+            error_msg = "尚未更新"
+            return render_template('choose_short_term_strong_stock.html', contents=contents, error_msg=error_msg)
         
 
     try:

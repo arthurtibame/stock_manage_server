@@ -136,4 +136,12 @@ alert('{{res_msg}}')
 </script>
 {% endif %} 
 
+</script>
+{% if error_msg %}
+<script type="text/javascript">
+alert('{{error_msg}}')
+</script>
+{% endif %} 
+
+
 {% endblock %}
