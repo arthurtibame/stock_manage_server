@@ -1,10 +1,7 @@
 from app import db
 from datetime import datetime
 
-class TodayStock:
-    pass
-"""
-class TodayStock(db.Model):
+class ChooseShortTermStrongStock(db.Model):
     __tablename__ = 'TodayStock'
     # Manual added cols
     id = db.Column(db.Integer,primary_key=True)
@@ -20,18 +17,15 @@ class TodayStock(db.Model):
     TradeQuantity = db.Column(db.Integer)
     TradeAmount = db.Column(db.Integer)
     StockType = db.Column(db.Integer)
-    DividendYield = db.Column(db.Float) 
-    DividendMoney = db.Column(db.Float) 
-    DividendStock = db.Column(db.Float) 
     VolumeIncrease = db.Column(db.Float) 
     PreLegalBuy = db.Column(db.Float) 
     # Auto added cols
     CreateTime = db.Column(db.DateTime, default=datetime.utcnow)
     ModifyTime = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __inti__(self, ClosingPrice, IndexSpread, OpeningPrice,DayHighPrice, DayLowPrice, PriceSpread, TradeQuantity, TradeAmount, StockType, DividendYield, DividendMoney, DividendStock, StartDate, EndDate, VolumeIncrease, PreLegalBuy):
-        self.ClosingPrice = ClosingPrice
-        self.IndexSpread = IndexSpread
+    def __inti__(self, StockCode, StockName, OpeningPrice, ClosingPrice, DayHighPrice, DayLowPrice, PriceSpread, TradeQuantity, TradeAmount, StockType, StartDate, EndDate, VolumeIncrease, PreLegalBuy):
+        self.StockCode = StockCode
+        self.StockName = StockName
         self.OpeningPrice = OpeningPrice
         self.ClosingPrice = ClosingPrice
         self.DayHighPrice = DayHighPrice 
@@ -39,13 +33,10 @@ class TodayStock(db.Model):
         self.PriceSpread = PriceSpread
         self.TradeQuantity = TradeQuantity
         self.TradeAmount = TradeAmount
-        self.StockType = StockType
-        self.DividendYield = DividendYield
-        self.DividendMoney = DividendMoney
-        self.DividendStock = DividendStock
+        self.StockType = StockType       
+        
         self.VolumeIncrease =  VolumeIncrease
         self.PreLegalBuy = PreLegalBuy
 
         self.StartDate = StartDate
         self.EndDate = EndDate
-"""

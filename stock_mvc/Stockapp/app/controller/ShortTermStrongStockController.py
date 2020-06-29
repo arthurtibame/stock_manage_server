@@ -12,6 +12,5 @@ def short_term_strong_stock():
     if request.method =="GET":        
         return render_template('short_term_strong_stock.html', short_term_strong_stocks = short_term_strong_stocks)
     
-    else:
-        
+    else:        
         return redirect(url_for('choose_short_term_strong_stock'))

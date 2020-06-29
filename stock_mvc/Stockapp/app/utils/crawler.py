@@ -5,6 +5,8 @@ import json
 from flask import session
 from urllib.parse import quote, unquote
 import pandas as pd
+from app.utils.TimeDealer import TheTime
+
 
 class Crawler(object):
 
@@ -61,36 +63,11 @@ class Crawler(object):
             closing_index = json_content[1].replace(',', '')
             index_spread = json_content[2][-5] + json_content[3]
 
-            # date to string time
-            str_start_date = self.__objdateConverter(NOW, case=1)
-            str_end_date = self.__objdateConverter(NOW, case=2)
-
-            # strftime 2 strptime --> type = datetime
-            start_date_time = self.__strdateConverter(str_start_date)
-            end_date_time = self.__strdateConverter(str_end_date)
-
-            return [closing_index, index_spread, start_date_time, end_date_time]
+            return [closing_index, index_spread, TheTime().start_date_time, TheTime().end_date_time]
 
         except:
             return list()
-
-    def __objdateConverter(self, obj_date, case=1):
-        """
-        date 物件轉 strftime + 指定時間
-        """
-        if case == 1:
-            return obj_date.strftime("%Y%m%d") + "14:00:00:00"
-        elif case == 2:
-            return (obj_date + timedelta(days=1)).strftime("%Y%m%d") + "13:59:59:00"
-        else:
-            return False
-
-    def __strdateConverter(self, str_datetime):
-        """
-        strftime 轉 strptime 
-        """
-        return datetime.strptime(str_datetime, "%Y%m%d%H:%M:%S:%f")
-    
+   
     def __short_term_strong_stock_crawler(self):    
         
         """
