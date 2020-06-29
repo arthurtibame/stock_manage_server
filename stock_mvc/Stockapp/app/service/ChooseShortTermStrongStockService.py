@@ -18,10 +18,9 @@ def insert_short_term_strong_stock(content):#content=dict()):
     先判斷上市上櫃 判斷完成且資料已更新的話新增到db       
     """        
     content = ast.literal_eval(content) 
-    print("GOT SERVICE:  ", type(content))
+    
     final_result = FromDict2StockCode(content)
-    if type(final_result) == type(dict()):
-        print(final_result)
+    if type(final_result) == type(dict()):        
         try:
             newShortTermStrongStock = ChooseShortTermStrongStock(                                
                 StockCode = final_result["StockCode"],
@@ -52,12 +51,10 @@ def FromDict2StockCode(content=dict()):
     # 處理回傳來的dictionary 擷取股票代馬
     # 再去 call OTCcompany or PublicCompany
     # 如果 result 回傳 None 回傳 尚未更新的訊息
-    """
+    """   
+     
+    UpType = content['UpType']    
     
-    print("=======================================================")    
-    UpType = content['UpType']
-    
-    print(UpType)
     if  UpType == "上櫃":
         result = OTCcompany(content['StockCode'])
         if result != False:
