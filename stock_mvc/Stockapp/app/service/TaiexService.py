@@ -25,3 +25,5 @@ def update_taiex():
             return "1"
         else:
             return None
+    else:
+        return "今日已更新"

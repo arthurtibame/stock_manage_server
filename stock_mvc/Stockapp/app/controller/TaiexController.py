@@ -12,10 +12,13 @@ def taiex():
         return render_template('taiex.html', taiexs=taiexs)
     
     if request.method =="POST":   
-        _ = update_taiex()
-        if _ == '1': 
+        response_msg = update_taiex()
+        if response_msg == '1': 
             taiexs = get_taiex()
             return render_template('taiex.html', taiexs=taiexs)
+        elif response_msg == '今日已更新': 
+            return render_template('taiex.html', taiexs=taiexs, response_msg=response_msg)
         else:
-            return render_template('taiex.html', taiexs=taiexs, error_msg="1")
+            response_msg = "請檢查目前時間是否正確"
+            return render_template('taiex.html', taiexs=taiexs, response_msg=response_msg)
 
