@@ -72,8 +72,8 @@
                                         <th style="text-align:center">成交</th>
                                         <th style="text-align:center">漲跌</th>
                                         <th style="text-align:center">成交量</th>
-                                        <th style="text-align:center">近1日量增價率(%)</th>
-                                        <th style="text-align:center">1日法人買超(張)</th>
+                                        <th style="text-align:center">漲跌幅(%)</th>
+                                        <th style="text-align:center">日K值</th>
                                         
                                         
                                     </tr>
@@ -87,8 +87,9 @@
                                         <td>{{ short_term_strong_stock.ClosingPrice }}</td>
                                         <td>{{ short_term_strong_stock.PriceSpread }}</td>                                    
                                         <td>{{ short_term_strong_stock.TradeQuantity }}</td>
-                                        <td>{{ short_term_strong_stock.VolumeIncrease }}</td>
-                                        <td>{{ short_term_strong_stock.PreLegalBuy }}</td>
+                                        <td>{{ short_term_strong_stock.PriceSpreadRate }}</td>
+                                        <td>{{ short_term_strong_stock.DailyKvalue }}</td>
+
                                         
                                     </tr>
                                     {% endfor %}

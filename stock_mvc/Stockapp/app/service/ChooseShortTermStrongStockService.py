@@ -19,29 +19,28 @@ def insert_short_term_strong_stock(content):#content=dict()):
     """        
     content = ast.literal_eval(content)        
     final_result = FromDict2StockCode(content)   
-    
     if type(final_result) == type(dict()):        
-        try:
-            newShortTermStrongStock = ChooseShortTermStrongStock(                                
-                StockCode = str(final_result["StockCode"]),
-                StockName = final_result["StockName"],
-                StartDate = final_result['StartDate'],
-                EndDate = final_result['EndDate'],
-                OpeningPrice = final_result['OpeningPrice'],
-                ClosingPrice = final_result['ClosingPrice'],
-                DayHighPrice = final_result['DayHighPrice'],
-                DayLowPrice = final_result['DayLowPrice'],
-                PriceSpread = final_result['PriceSpread'],
-                TradeQuantity = str(final_result['TradeQuantity']),
-                TradeAmount = str(final_result['TradeAmount']),
-                StockType = final_result['StockType'],
-                PriceSpreadRate = final_result['PriceSpreadRate'],
-                DailyKvalue = final_result['DailyKvalue']                                                 
-                )
-            db.session.add(newShortTermStrongStock)
-            db.session.commit()            
-        except:
-            return "db error"
+        #try:
+        newShortTermStrongStock = ChooseShortTermStrongStock(                                
+            StockCode = str(final_result["StockCode"]),
+            StockName = final_result["StockName"],
+            StartDate = final_result['StartDate'],
+            EndDate = final_result['EndDate'],
+            OpeningPrice = final_result['OpeningPrice'],
+            ClosingPrice = final_result['ClosingPrice'],
+            DayHighPrice = final_result['DayHighPrice'],
+            DayLowPrice = final_result['DayLowPrice'],
+            PriceSpread = final_result['PriceSpread'],
+            PriceSpreadRate = final_result['PriceSpreadRate'],
+            TradeQuantity = str(final_result['TradeQuantity']),
+            TradeAmount = str(final_result['TradeAmount']),
+            StockType = final_result['StockType'],                
+            DailyKvalue = final_result['DailyKvalue']                                                 
+            )
+        db.session.add(newShortTermStrongStock)
+        db.session.commit()            
+        #except:
+        #    return "db error"
         return '更新成功'
     else:
         return "請於3點半後更新"
