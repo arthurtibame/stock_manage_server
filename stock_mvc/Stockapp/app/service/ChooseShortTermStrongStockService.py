@@ -17,9 +17,9 @@ def insert_short_term_strong_stock(content):#content=dict()):
     參數帶選取強勢股內容, 這邊利用爬蟲處理 其餘資料
     先判斷上市上櫃 判斷完成且資料已更新的話新增到db       
     """        
-    content = ast.literal_eval(content) 
+    content = ast.literal_eval(content)        
+    final_result = FromDict2StockCode(content)   
     
-    final_result = FromDict2StockCode(content)
     if type(final_result) == type(dict()):        
         try:
             newShortTermStrongStock = ChooseShortTermStrongStock(                                
@@ -35,16 +35,16 @@ def insert_short_term_strong_stock(content):#content=dict()):
                 TradeQuantity = str(final_result['TradeQuantity']),
                 TradeAmount = str(final_result['TradeAmount']),
                 StockType = final_result['StockType'],
-                VolumeIncrease = final_result['VolumeIncrease'],
-                PreLegalBuy = final_result['PreLegalBuy']                                                 
+                PriceSpreadRate = final_result['PriceSpreadRate'],
+                DailyKvalue = final_result['DailyKvalue']                                                 
                 )
             db.session.add(newShortTermStrongStock)
             db.session.commit()            
         except:
             return "db error"
-        return 'successfully'
+        return '更新成功'
     else:
-        return "There is no data updated today "
+        return "請於3點半後更新"
 
 def FromDict2StockCode(content=dict()): 
     """

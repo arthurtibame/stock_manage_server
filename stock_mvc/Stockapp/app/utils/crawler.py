@@ -76,54 +76,25 @@ class Crawler(object):
             col_names = ['StockName', 'StockCode', 'ClosingPrice', "PriceSpread", "TradeQuantity", \
             "VolumeIncrease", "PreLegalBuy"]        
         """
-        shortTermStrongStockUrl = r'https://pchome.megatime.com.tw/get_qranklist.php'
+        shortTermStrongStockUrl = r'https://tw.screener.finance.yahoo.net/screener/ws?PickID=100042,100043,100213,1213,1214&PickCount=20&f=j&519'
         
-        headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/5\
-                    37.36 (KHTML,like Gecko) Chrome/83.0.4103.116 Safari/537.36",
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-Requested-With': 'XMLHttpRequest'
-        }
+        result_list = list()
+        res = requests.post(shortTermStrongStockUrl)#, headers=headers, data=data)
+        #soup = BeautifulSoup(res.text, 'lxml')
+        json_list = json.loads(res.text)['items']
+        for f in json_list:
+            tmp_dict = dict()
+            tmp_dict['StockCode'] = f['symid']
+            tmp_dict['StockName'] =f['symname'] 
+            tmp_dict['ClosingPrice'] =f['close_price']
+            tmp_dict['PriceSpread'] =f['updn']
+            tmp_dict['PriceSpreadRate'] =f['updn_rate']
+            tmp_dict['DailyKvalue'] =f['B5']
+            tmp_dict['UpType'] = self.__chkConpamyCategory(tmp_dict['StockCode'])
 
-        data = {
-            "area_item1[]" : ["1_3", "5_1"],
-            "item2[]" : ["1", "1"],
-            "item3[]" : ["10", "1"],
-            "page1" : "1"
-        }
+            result_list.append(tmp_dict)
+        return result_list
 
-        res = requests.post(shortTermStrongStockUrl, headers=headers, data=data)
-        soup = BeautifulSoup(res.text, 'lxml')
-        date = soup.find_all('div',{"style":"padding:0 10px 6px;font-size:14px;text-align:right"})[0].text.split(': ')[1]
-        strp_date = datetime.strptime(date, "%Y-%m-%d").date()
-        if datetime.now().date == strp_date:
-            uls = soup.find_all('ul', {"class":"ul_stock"})
-            result = list()
-            for ul in uls:
-                counter = 0
-                a = list()
-                for li in ul.find_all('li'):
-                    if counter == 1 : # deal with second tag <li></li>
-                        stockCode = li.a['href'][-9:-5]
-                        stockName = li.a.text[:-6]
-                        nameDealer = stockName.split()
-                        if len(nameDealer) == 2:
-                            stockName = nameDealer[0] + nameDealer[1]
-                            a.append(stockName)    
-                        else:
-                            a.append(stockName)
-                        # check check company category 
-                        companyCategory = self.__chkConpamyCategory(stockCode)                    
-                        a.append(stockCode)                   
-                        a.append(companyCategory)
-                    elif counter !=7:
-                        a.append(li.text)   
-                    counter+=1
-                a = self.__StrongStock2dict(a[1:])            
-                result.append(a)
-            return result
-        else:
-            return None
 
     def __chkConpamyCategory(self, stock_id):
         
@@ -142,10 +113,3 @@ class Crawler(object):
         soup = BeautifulSoup(res.text, 'lxml')
         companyCategory = soup.find("span", {"class":"companyCategory"}).span.text.split()[1]
         return companyCategory
-
-    
-    def __StrongStock2dict(self, content=list()):
-        col_names = ['StockName', 'StockCode', 'UpType' , 'ClosingPrice', "PriceSpread", "TradeQuantity", \
-            "VolumeIncrease", "PreLegalBuy"
-            ]
-        return dict(zip(col_names, content))

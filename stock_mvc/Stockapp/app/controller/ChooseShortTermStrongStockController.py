@@ -11,9 +11,9 @@ from app.service.ChooseShortTermStrongStockService import insert_short_term_stro
 def choose_short_term_strong_stock():
     test = ""
     content = ""
-    
+    contents = Crawler().short_term_strong_stock
     if request.method == "GET" :        
-        contents = Crawler().short_term_strong_stock
+        
         if contents != None:
             return render_template('choose_short_term_strong_stock.html', contents=contents)
         else:

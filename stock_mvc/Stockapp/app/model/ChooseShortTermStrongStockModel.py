@@ -17,13 +17,13 @@ class ChooseShortTermStrongStock(db.Model):
     TradeQuantity = db.Column(db.Integer)
     TradeAmount = db.Column(db.Integer)
     StockType = db.Column(db.Integer)
-    VolumeIncrease = db.Column(db.Float) 
-    PreLegalBuy = db.Column(db.Float) 
+    PriceSpreadRate = db.Column(db.Float) 
+    DailyKvalue = db.Column(db.Float) 
     # Auto added cols
     CreateTime = db.Column(db.DateTime, default=datetime.utcnow)
     ModifyTime = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __inti__(self, StockCode, StockName, OpeningPrice, ClosingPrice, DayHighPrice, DayLowPrice, PriceSpread, TradeQuantity, TradeAmount, StockType, StartDate, EndDate, VolumeIncrease, PreLegalBuy):
+    def __inti__(self, StockCode, StockName, OpeningPrice, ClosingPrice, DayHighPrice, DayLowPrice, PriceSpread, TradeQuantity, TradeAmount, StockType, StartDate, EndDate, PriceSpreadRate, DailyKvalue):
         self.StockCode = StockCode
         self.StockName = StockName
         self.OpeningPrice = OpeningPrice
@@ -35,8 +35,8 @@ class ChooseShortTermStrongStock(db.Model):
         self.TradeAmount = TradeAmount
         self.StockType = StockType       
         
-        self.VolumeIncrease =  VolumeIncrease
-        self.PreLegalBuy = PreLegalBuy
+        self.PriceSpreadRate =  PriceSpreadRate
+        self.DailyKvalue = DailyKvalue
 
         self.StartDate = StartDate
         self.EndDate = EndDate

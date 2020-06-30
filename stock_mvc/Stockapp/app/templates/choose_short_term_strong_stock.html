@@ -69,14 +69,13 @@
                                 <table class="table table-bordered table-striped table-condensed table-dark">
                                     <thead>
                                         <tr style="background-color:#d9d9d9">
-                                            <th style="text-align:center">排行</th>
+                                            <th style="text-align:center"></th>
                                             <th style="text-align:center">股票代碼</th>
                                             <th style="text-align:center">股票名稱</th>
                                             <th style="text-align:center">成交</th>
-                                            <th style="text-align:center">漲跌</th>
-                                            <th style="text-align:center">成交量</th>
-                                            <th style="text-align:center">近1日量增價率(%)</th>
-                                            <th style="text-align:center">1日法人買超(張)</th>
+                                            <th style="text-align:center">漲跌</th>                                            
+                                            <th style="text-align:center">漲跌幅(%)</th>
+                                            <th style="text-align:center">日K值</th>
                                             <th style="text-align:center">上市/上櫃</th>
                                             <th style="text-align:center">新增</th>
                                             
@@ -91,10 +90,9 @@
                                             <td>{{  contents.StockCode  }}</td>
                                             <td>{{  contents.StockName  }}</td>
                                             <td>{{  contents.ClosingPrice  }}</td>                                            
-                                            <td>{{  contents.PriceSpread  }}</td>
-                                            <td>{{  contents.TradeQuantity  }}</td>
-                                            <td>{{  contents.VolumeIncrease  }}</td>
-                                            <td>{{  contents.PreLegalBuy  }}</td>
+                                            <td>{{  contents.PriceSpread  }}</td>                                            
+                                            <td>{{  contents.PriceSpreadRate  }}</td>
+                                            <td>{{  contents.DailyKvalue  }}</td>
                                             <td>{{  contents.UpType  }}</td>
                                             <td>
                                                 
