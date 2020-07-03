@@ -111,8 +111,6 @@ class Crawler(object):
         url = f'https://pchome.megatime.com.tw/stock/sid{stock_id}.html'
         res = requests.get(url, headers=headers)
         soup = BeautifulSoup(res.text, 'lxml')
-        print("STOCK__ID: ", stock_id)
-        print(soup.find("span", {"class":"companyCategory"}).span.text.split())
         try:
             companyCategory = soup.find("span", {"class":"companyCategory"}).span.text.split()[1]
         except:
