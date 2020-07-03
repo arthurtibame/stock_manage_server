@@ -90,7 +90,7 @@ class Crawler(object):
             tmp_dict['PriceSpread'] =f['updn']
             tmp_dict['PriceSpreadRate'] =f['updn_rate']
             tmp_dict['DailyKvalue'] =f['B5']
-            tmp_dict['UpType'] = self.__chkConpamyCategory(tmp_dict['StockCode'])
+            tmp_dict['UpType'] = self.__chkConpamyCategory(f['symid'])
 
             result_list.append(tmp_dict)
         return result_list
@@ -111,5 +111,13 @@ class Crawler(object):
         url = f'https://pchome.megatime.com.tw/stock/sid{stock_id}.html'
         res = requests.get(url, headers=headers)
         soup = BeautifulSoup(res.text, 'lxml')
-        companyCategory = soup.find("span", {"class":"companyCategory"}).span.text.split()[1]
+        print("STOCK__ID: ", stock_id)
+        print(soup.find("span", {"class":"companyCategory"}).span.text.split())
+        try:
+            companyCategory = soup.find("span", {"class":"companyCategory"}).span.text.split()[1]
+        except:
+            companyCategory = soup.find("span", {"class":"companyCategory"}).span.text.split()[0]
         return companyCategory
+
+
+    
